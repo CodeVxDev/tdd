@@ -10,10 +10,12 @@ def circle_area(radius):
 def get_circle_area():
     try:
         radius = float(request.args.get('radius'))
+        if radius <= 0:
+            return {'error': "Radius must be a positive number."}, 400
     except ValueError:
-        return jsonify({'area': "Invalid Radius"})
+        return {'error': "Radius must be a positive number."}, 400
     area = circle_area(radius)
-    return jsonify({'area': area})
+    return {'area': area}
 
 if __name__ == '__main__':
     app.run()
